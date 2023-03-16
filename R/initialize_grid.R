@@ -1,66 +1,32 @@
+#' Create the initialize grid function to return class instance
+#'
+#' @param rho - The density of cars in the grid
+#' @param dims -  A vector of length 2 representing the dimensions of the grid.
+#' @param prob_blue - The proportion of blue squares in the grid,
+#' a number between 0 and 1.
+#'
+#' @return This returns a matrix with blue, red, and no cars represented
+#' by 0,1,2 respectively.
 #' @export
-
-
-# Create the initialize grid function to return class instance
 initialize_grid <- function(rho, dims, prob_blue) {
-    # calculating the total number of cars, using rho
-    if (rho %% 1 != 0 && rho < 1) {
-        # if rho is less than 1
-        total_cars <- round(rho * dims[1] * dims[2])
-    } else {
-        total_cars <- as.integer(rho)
-    }
-
-    if (total_cars == 0) {
-        stop("rho is too small. Please increase rho or choose a larger grid.")
-    }
+  p <- c(prob_blue, 1 - prob_blue)
+  # calculating the total number of cars, using rho
+  if (rho %% 1 != 0 && rho < 1) {
+    # if rho is less than 1
+    total_cars <- ceiling(rho * dims[1] * dims[2])
+  } else {
+    total_cars <- as.integer(rho)
+  }
 
 
-    # create total number of red and blue cars
-    if (prob_blue == 0) {
-        blue_cars <- 0
-        red_cars <- total_cars
-    } else if (prob_blue == 1) {
-        blue_cars <- total_cars
-        red_cars <- 0
-    } else {
-        blue_cars <- round(total_cars * prob_blue)
-        red_cars <- total_cars - blue_cars
-    }
+  # create total number of red and blue cars
+  carz <- sample(c(1, 2), total_cars, prob = p, replace = TRUE)
 
-    # initialization of matrix
-    grid <- matrix(0, dims[1], dims[2])
+  # Combinate zeros and cars
+  grid_zero <- c(rep(0, (dims[1] * dims[2]) - total_cars))
+  grid <- c(grid_zero, carz)
+  grid <- matrix(sample(grid), nrow = dims[1], ncol = dims[2])
 
-    # Input blue squares randomly, to one
-    if (blue_cars != 0){
-        for (i in 1:blue_cars) {
-            # Randomize rows and columns
-            a <- sample(1:dims[1], 1)
-            b <- sample(1:dims[2], 1)
-            # Testing if there is nothing there, add
-            if (grid[a, b] == 0) {
-                grid[a, b] <- 1
-            } else {
-                i <- i - 1
-            }
-        }
-    }
-
-    # Input red squares randomly, to two
-    if (red_cars!= 0){
-        for (i in 1:red_cars) {
-            # Randomize rows and columns
-            a <- sample(1:dims[1], 1)
-            b <- sample(1:dims[2], 1)
-            # Testing if there is nothing there, add
-            if (grid[a, b] == 0) {
-                grid[a, b] <- 2
-            } else {
-                i <- i - 1
-            }
-        }
-    }
-
-    # Create a new instance of the carsimr class
-    structure(grid, class = "carsimr")
+  # Create a new instance of the carsimr class
+  structure(grid, class = "carsimr")
 }
