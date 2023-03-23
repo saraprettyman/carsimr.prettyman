@@ -2,13 +2,13 @@
 % Please edit documentation in R/move_cars.R
 \name{move_cars}
 \alias{move_cars}
-\title{Move cars function}
+\title{Move both cars multiple trials}
 \usage{
 move_cars(t_grid, trials)
 }
 \arguments{
 \item{t_grid}{A matrix representing the starting grid
-configuration with 0 for empty cells, 1 for blue cars, and 2 for red cars.}
+with 0 for empty cells, 1 for blue cars, and 2 for red cars.}
 
 \item{trials}{An integer specifying the number of trials to move the cars.}
 }
@@ -17,6 +17,10 @@ A list of matrices representing the grid configuration
 after each trial, including the initial grid.
 }
 \description{
-This function moves the red and blue cars in a grid for
+Moves the red and blue cars in a grid for
 a specified number of trials.
+}
+\examples{
+grid <- matrix(c(0, 2, 1, 2, 1, 2, 1, 1, 0), nrow = 3, ncol = 3, byrow = TRUE)
+move_cars(grid, trials = 5)
 }

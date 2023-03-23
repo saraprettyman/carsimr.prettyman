@@ -2,7 +2,7 @@
 % Please edit documentation in R/initialize_grid.R
 \name{initialize_grid}
 \alias{initialize_grid}
-\title{Create the initialize grid function to return class instance}
+\title{Create a matrix of values 0, 1, and 2}
 \usage{
 initialize_grid(rho, dims, prob_blue)
 }
@@ -16,14 +16,19 @@ initialize_grid(rho, dims, prob_blue)
 }}
 
 \item{prob_blue}{\itemize{
-\item The proportion of blue squares in the grid,
-a number between 0 and 1.
+\item The proportion, between 0 and 1
+of blue squares out of total number of cars.
 }}
 }
 \value{
-This returns a matrix with blue, red, and no cars represented
-by 0,1,2 respectively.
+Returns a matrix representing the grid,
+where blue and red cars are represented by 1 and 2,
+respectively, and no cars are represented by 0.
 }
 \description{
-Create the initialize grid function to return class instance
+Create a matrix of values 0, 1, and 2
+}
+\examples{
+initialize_grid(rho = 56, c(10, 10), 0.4)
+initialize_grid(rho = 0.50, c(3, 3), 0.96)
 }

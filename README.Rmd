@@ -1,0 +1,65 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of 'carsimr.prettyman' is to run a car simulation, and plot the results. The simulation is based on a matrix filled with both blue and red cars, with grey filling in the empty spaces. Red cars move horizontally rightward and blue cars move vertically upward, with blue moving on odd turns and red moving on even. 
+
+## Installation
+
+You can install the development version of carsimr.prettyman from [GitHub](https://github.com/) with:
+
+```{r set up, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("saraprettyman/carsimr.prettyman")
+```
+
+Once installed, you can load the package and functions with
+```{r load package, message = FALSE}
+library(carsimr.prettyman)
+```
+## Example
+
+To initialized grid of dimensions r x c:
+
+```{r init grid example, message = FALSE}
+# Positive integer or float are acceptable
+r = 3;
+c = 5;
+rho <- 0.50
+dims <- c(r, c)
+prob_blue <- .68
+grid <- initialize_grid(rho, dims, prob_blue)
+grid
+```
+
+Using the already created initial grid, the cars of the grid can be moved for a desire number of times and returns a list of carsimr grids. Note that the first grid in the list is the initial one.
+
+```{r grid_list example, message = FALSE}
+moved_list <- move_cars(grid, trials = 4)
+```
+
+
+To plot the results, you can plot the individual grid from 'initialize_grid'.
+
+```{r plot example, echo = FALSE, message = FALSE}
+# Individual plot
+plot(grid)
+# Multiple grid print, with one second pause in between each
+plot(moved_list, pause = 1)
+```
+

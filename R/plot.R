@@ -1,5 +1,20 @@
-#' @export
+#' Plot carsimr output
 #'
+#' Plot an image of the carsimr grid with
+#' blue and red colors representing the cars.
+#'
+#'
+#' @param x A matrix that contains the carsimr output
+#' @param y Ignore
+#' @param ... (optional) Additional arguments for the
+#' graphics::image function
+#' @import lattice
+#'
+#' @return An image of the carsimr matrix
+#' @examples
+#' grid <- initialize_grid(0.50, c(3,3), 0.5)
+#' plot(grid)
+#' @export
 plot.carsimr <- function(x, y, ...) {
   # correcting print orientation
   grid <- x
@@ -8,28 +23,39 @@ plot.carsimr <- function(x, y, ...) {
   }
   grid <- grid[seq_len(dim(grid)[1]), ]
   grid <- t(grid)
-  dims <- dim(grid)
-  r <- dims[1]
-  c <- dims[2]
-  img <- matrix(NA, nrow = r, ncol = c)
-  img[grid == 0] <- 0
-  img[grid == 1] <- 1
-  img[grid == 2] <- 2
-  if (any(grid == 1) && any(grid == 0) && !any(grid == 2)) {
-    graphics::image(1:r, 1:c, img,
-      col = c("white", "blue"),
-      xaxt = "n", yaxt = "n", xlab = "", ylab = ""
-    )
-  } else {
-    graphics::image(1:r, 1:c, img,
-      col = c("white", "blue", "red"),
-      xaxt = "n", yaxt = "n", xlab = "", ylab = ""
-    )
-  }
-  # Grid lines (border)
-  graphics::box()
+  lattice::levelplot(grid,
+    cuts = 2,
+    xlim = c(0.5, ncol(x) + 0.5),
+    ylim = c(nrow(x) + 0.5, 0.5),
+    scale = list(draw = FALSE),
+    ylab = "",
+    xlab = "",
+    colorkey = FALSE,
+    labels = FALSE,
+    panel = function(...) {
+      lattice::panel.levelplot(...)
+      lattice::panel.grid(v = ncol(x) - 1, h = nrow(x) - 1, col = "black")
+    },
+    col.regions = c("grey", "blue", "red"), at = c(-0.1, 0.9, 1.9, 2.1)
+  )
 }
 
+#' Plot List of carsimr output
+#'
+#' Plots a list of carsimr outputs, each containing
+#' an image with blue and red representing the cars
+#'
+#' @param x A list of matrices containing the carsimr outputs
+#' @param y Ignored
+#' @param pause The pause time (in seconds) between each
+#' plot image print
+#' @param ... (optional) Additional arguments for the plot.carsimr function
+#'
+#' @return A sequence of plots protraying the carsimr outputs
+#' @examples
+#' grid <- initialize_grid(0.50, c(3,3), 0.5)
+#' grid_list <- move_cars(grid, 5)
+#' plot(grid_list, pause = 1)
 #' @export
 plot.carsimr_list <- function(x, y, pause, ...) {
   grid_list <- x
