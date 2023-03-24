@@ -36,9 +36,9 @@ To initialized grid:
 grid <- initialize_grid(rho = 0.50, dims = c(3, 5), prob_blue = .68)
 grid
 #>      [,1] [,2] [,3] [,4] [,5]
-#> [1,]    0    1    1    1    2
-#> [2,]    0    1    1    0    1
-#> [3,]    0    0    0    0    1
+#> [1,]    2    0    2    1    1
+#> [2,]    0    1    0    2    0
+#> [3,]    0    0    2    0    1
 #> attr(,"class")
 #> [1] "carsimr"
 ```
