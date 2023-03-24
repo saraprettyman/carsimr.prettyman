@@ -24,7 +24,7 @@ Plots a list of carsimr outputs, each containing
 an image with blue and red representing the cars
 }
 \examples{
-grid <- initialize_grid(0.50, c(3,3), 0.5)
-grid_list <- move_cars(grid, 5)
+grid <- initialize_grid(0.50, c(3, 3), 0.5)
+grid_list <- move_cars(grid, 3)
 plot(grid_list, pause = 1)
 }

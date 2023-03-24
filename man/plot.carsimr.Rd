@@ -22,6 +22,6 @@ Plot an image of the carsimr grid with
 blue and red colors representing the cars.
 }
 \examples{
-grid <- initialize_grid(0.50, c(3,3), 0.5)
+grid <- initialize_grid(0.50, c(3, 3), 0.5)
 plot(grid)
 }

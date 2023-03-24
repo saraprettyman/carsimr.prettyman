@@ -9,12 +9,14 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  output.exclude = c("pdf", "jpg", "png")
 )
 ```
 
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/saraprettyman/carsimr.prettyman/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/saraprettyman/carsimr.prettyman/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of 'carsimr.prettyman' is to run a car simulation, and plot the results. The simulation is based on a matrix filled with both blue and red cars, with grey filling in the empty spaces. Red cars move horizontally rightward and blue cars move vertically upward, with blue moving on odd turns and red moving on even. 
@@ -34,16 +36,11 @@ library(carsimr.prettyman)
 ```
 ## Example
 
-To initialized grid of dimensions r x c:
+To initialized grid:
 
 ```{r init grid example, message = FALSE}
 # Positive integer or float are acceptable
-r = 3;
-c = 5;
-rho <- 0.50
-dims <- c(r, c)
-prob_blue <- .68
-grid <- initialize_grid(rho, dims, prob_blue)
+grid <- initialize_grid(rho = 0.50, dims = c(3, 5), prob_blue = .68)
 grid
 ```
 
@@ -59,7 +56,5 @@ To plot the results, you can plot the individual grid from 'initialize_grid'.
 ```{r plot example, echo = FALSE, message = FALSE}
 # Individual plot
 plot(grid)
-# Multiple grid print, with one second pause in between each
-plot(moved_list, pause = 1)
 ```
 

@@ -12,17 +12,22 @@
 #'
 #' @return An image of the carsimr matrix
 #' @examples
-#' grid <- initialize_grid(0.50, c(3,3), 0.5)
+#' grid <- initialize_grid(0.50, c(3, 3), 0.5)
 #' plot(grid)
 #' @export
 plot.carsimr <- function(x, y, ...) {
-  # correcting print orientation
-  grid <- x
-  if (length(dim(grid)) == 0) {
-    stop("Input matrix is empty")
+  if (!inherits(x, "carsimr") || !is.matrix(x)) {
+    stop("Input must be a carsimr object and matrix")
   }
-  grid <- grid[seq_len(dim(grid)[1]), ]
-  grid <- t(grid)
+  # Check input matrix
+  if (length(dim(x)) == 0) {
+    warning("Input matrix is empty")
+  }
+
+  # Correct print orientation
+  grid <- t(x[seq_len(dim(x)[1]), ])
+
+  # Plot image
   lattice::levelplot(grid,
     cuts = 2,
     xlim = c(0.5, ncol(x) + 0.5),
@@ -36,7 +41,8 @@ plot.carsimr <- function(x, y, ...) {
       lattice::panel.levelplot(...)
       lattice::panel.grid(v = ncol(x) - 1, h = nrow(x) - 1, col = "black")
     },
-    col.regions = c("grey", "blue", "red"), at = c(-0.1, 0.9, 1.9, 2.1)
+    col.regions = c("grey", "blue", "red"), at = c(-0.1, 0.9, 1.9, 2.1),
+    ...
   )
 }
 
@@ -53,14 +59,27 @@ plot.carsimr <- function(x, y, ...) {
 #'
 #' @return A sequence of plots protraying the carsimr outputs
 #' @examples
-#' grid <- initialize_grid(0.50, c(3,3), 0.5)
-#' grid_list <- move_cars(grid, 5)
+#' grid <- initialize_grid(0.50, c(3, 3), 0.5)
+#' grid_list <- move_cars(grid, 3)
 #' plot(grid_list, pause = 1)
 #' @export
 plot.carsimr_list <- function(x, y, pause, ...) {
-  grid_list <- x
-  for (i in seq_along(grid_list)) {
-    plot.carsimr(grid_list[[i]])
+  # Check input list
+  if (!is.list(x) || !inherits(x, "carsimr_list")) {
+    stop("Input must be a list")
+  }
+
+  if (length(x) == 0) {
+    warning("Input list is empty")
+  }
+
+  if (pause < 0) {
+    stop("Time must be non-negative")
+  }
+
+  # Plot each matrix in the list
+  for (i in seq_along(x)) {
+    plot.carsimr(x[[i]], ...)
     Sys.sleep(pause)
   }
 }

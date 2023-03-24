@@ -49,7 +49,7 @@ test_that("Move red car multiple times has same total cars", {
   dims <- c(5, 5)
   prob_blue <- runif(1)
   grid <- initialize_grid(rho, dims, prob_blue)
-  actual_count <- numeric(10)
+  actual_count <- numeric(100)
   expected_count <- sum(grid = 2)
 
   # test each individual as well as total count are equivalent

@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/saraprettyman/carsimr.prettyman/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/saraprettyman/carsimr.prettyman/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of ‘carsimr.prettyman’ is to run a car simulation, and plot the
@@ -27,21 +29,16 @@ library(carsimr.prettyman)
 
 ## Example
 
-To initialized grid of dimensions r x c:
+To initialized grid:
 
 ``` r
 # Positive integer or float are acceptable
-r = 3;
-c = 5;
-rho <- 0.50
-dims <- c(r, c)
-prob_blue <- .68
-grid <- initialize_grid(rho, dims, prob_blue)
+grid <- initialize_grid(rho = 0.50, dims = c(3, 5), prob_blue = .68)
 grid
 #>      [,1] [,2] [,3] [,4] [,5]
-#> [1,]    0    0    1    0    1
-#> [2,]    2    0    2    1    1
-#> [3,]    0    1    0    1    0
+#> [1,]    0    1    1    1    2
+#> [2,]    0    1    1    0    1
+#> [3,]    0    0    0    0    1
 #> attr(,"class")
 #> [1] "carsimr"
 ```
