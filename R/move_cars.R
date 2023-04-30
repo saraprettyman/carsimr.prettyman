@@ -11,7 +11,8 @@
 #'
 #' @examples
 #' grid <- matrix(c(0, 2, 1, 2, 1, 2, 1, 1, 0),
-#' nrow = 3, ncol = 3, byrow = TRUE)
+#'   nrow = 3, ncol = 3, byrow = TRUE
+#' )
 #' move_cars(grid, trials = 5)
 #' @export
 move_cars <- function(t_grid, trials) {

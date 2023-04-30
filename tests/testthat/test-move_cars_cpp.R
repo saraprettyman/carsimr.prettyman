@@ -10,7 +10,8 @@ test_that("Total number of cars stays consistent", {
   # Run simulation and count actual cars at each time step
   for (t in 1:10) {
     final_grid <- cpp_convert_carsimr(
-        as.matrix(move_cars_cpp(initial_grid, t)[[t + 1]]))
+      as.matrix(move_cars_cpp(initial_grid, t)[[t + 1]])
+    )
     count <- sum(final_grid == 1 | final_grid == 2)
     actual_count[t] <- count
     expect_equal(count, expected_count)
